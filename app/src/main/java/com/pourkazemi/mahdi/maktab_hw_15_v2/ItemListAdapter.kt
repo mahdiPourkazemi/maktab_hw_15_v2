@@ -14,9 +14,9 @@ import com.pourkazemi.mahdi.maktab_hw_15_v2.databinding.MyItemBinding
 class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDiffUtil()) {
     var clickListener: ((Int) -> Unit)? =null
 
-        init {
+/*        init {
             setHasStableIds(true)
-        }
+        }*/
     val mList = mutableListOf<City>()
 
 

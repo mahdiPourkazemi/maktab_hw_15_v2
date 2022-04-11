@@ -31,9 +31,9 @@ class SelectedFragment : Fragment(R.layout.fragment_selected) {
             )
         }
 
-        myViewModel.listOfCity.observe(viewLifecycleOwner) {list->
+        myViewModel.listOfSelectedCity.observe(viewLifecycleOwner) {list->
 
-            selectedItemListAdapter.mList.addAll(list.filter { it.isSelected })
+            selectedItemListAdapter.mList.addAll(list.filter { it.isSelected })//.toSet())
             Log.d("test","observed")
         }
 /*        selectedItemListAdapter.clickListener = { city, position ->
@@ -51,6 +51,8 @@ class SelectedFragment : Fragment(R.layout.fragment_selected) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.selectedRv.adapter as ItemListAdapter
                 myViewModel.updateListCity(viewHolder.adapterPosition)
+                //remove second observer list
+                myViewModel.removeOfSelectedList(viewHolder.adapterPosition)
                 adapter.removeAt(viewHolder.adapterPosition)
             }
         }

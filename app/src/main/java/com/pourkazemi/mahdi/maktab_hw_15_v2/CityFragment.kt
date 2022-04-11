@@ -30,6 +30,7 @@ class CityFragment : Fragment(R.layout.fragment_city) {
 
         myViewModel.listOfCity.observe(viewLifecycleOwner) {
             Log.d("test", "this is observed")
+            cityItemListAdapter.mList.removeAll(it)
             cityItemListAdapter.mList.addAll(it)
         }
 

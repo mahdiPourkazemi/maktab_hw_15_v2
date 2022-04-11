@@ -6,27 +6,35 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MyViewModel : ViewModel() {
-    private val _listOfCity = MutableLiveData<MutableList<City>>()//.apply { value?.addAll(createList())  }
+    private val _listOfCity =
+        MutableLiveData<MutableList<City>>()//.apply { value?.addAll(createList())  }
     val listOfCity: LiveData<List<City>>
         get() = Transformations.map(_listOfCity) {
             it.toList()
         }
+    private val _listOfSelectedCity = MutableLiveData<MutableSet<City>>()
+    val listOfSelectedCity: LiveData<Set<City>>
+        get() = Transformations.map(_listOfSelectedCity) {
+            it.toSet()
+        }
 
     init {
         _listOfCity.postValue(createList().toMutableList())
+        _listOfSelectedCity.postValue(listOf<City>().toMutableSet())
     }
 
     fun updateListCity(position: Int) {
         // if (city.id == position) {
         val uCity = _listOfCity.value?.get(position)
         uCity?.let {
+            _listOfSelectedCity.value?.add(it)
             it.isSelected = !it.isSelected
             _listOfCity.value?.set(position, it)
         }
     }
 
-    fun removeOfList(position: Int) {
-        _listOfCity.value?.removeAt(position)
+    fun removeOfSelectedList(position: Int) {
+        _listOfSelectedCity.value?.remove(_listOfSelectedCity.value?.elementAt(position))
         //_listOfCity.postValue(_listOfCity.value)
     }
 
