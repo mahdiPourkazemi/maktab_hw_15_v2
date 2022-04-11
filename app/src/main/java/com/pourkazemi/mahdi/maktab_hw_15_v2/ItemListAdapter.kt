@@ -12,14 +12,21 @@ import com.pourkazemi.mahdi.maktab_hw_15_v2.databinding.MyItemBinding
 
 
 class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDiffUtil()) {
-    var clickListener: ((city: City, position: Int) -> Unit?)? = null
-    init {
-        setHasStableIds(true)
-    }
+    var clickListener: ((Int) -> Unit)? =null
+
+        init {
+            setHasStableIds(true)
+        }
+    val mList = mutableListOf<City>()
+
+
     fun removeAt(position: Int) {
-        //currentList.removeAt(position)
+        mList.removeAt(position)
         notifyItemRemoved(position)
+        //notifyItemMoved(position+1,position)
     }
+
+    override fun getItemCount()=mList.size
 
     class ItemViewHolder(
         private val binding: MyItemBinding
@@ -61,10 +68,11 @@ class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDi
         holder: ItemViewHolder,
         position: Int
     ) {
-        holder.mBind(getItem(position))
+        //holder.mBind(getItem(position))
+        holder.mBind(mList.get(position))
         holder.itemView.setOnClickListener {
             Log.d("test", "$position is clicked")
-            if (getItem(position).isSelected) {
+            if (mList.get(position).isSelected) {
                 holder.itemView.setBackgroundColor(
                     Color.parseColor("#FFFFFF")
                 )
@@ -74,7 +82,7 @@ class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDi
                 )
             }
 
-            clickListener?.invoke(getItem(position), position)
+            clickListener?.invoke(position)
         }
     }
 }
@@ -84,10 +92,10 @@ class ItemDiffUtil : DiffUtil.ItemCallback<City>() {
     override fun areItemsTheSame(
         oldItem: City,
         newItem: City
-    ): Boolean = oldItem.id == newItem.id
+    ): Boolean = oldItem == newItem
 
     override fun areContentsTheSame(
         oldItem: City,
         newItem: City
-    ): Boolean = oldItem.name == newItem.name
+    ): Boolean = oldItem.id == newItem.id
 }
