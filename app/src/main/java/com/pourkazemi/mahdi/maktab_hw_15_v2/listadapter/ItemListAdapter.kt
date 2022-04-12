@@ -1,4 +1,4 @@
-package com.pourkazemi.mahdi.maktab_hw_15_v2
+package com.pourkazemi.mahdi.maktab_hw_15_v2.listadapter
 
 import android.graphics.Color
 import android.util.Log
@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.pourkazemi.mahdi.maktab_hw_15_v2.R
 import com.pourkazemi.mahdi.maktab_hw_15_v2.databinding.MyItemBinding
+import com.pourkazemi.mahdi.maktab_hw_15_v2.model.City
 
 
 class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDiffUtil()) {
@@ -33,6 +35,7 @@ class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDi
     ) : RecyclerView.ViewHolder(binding.root) {
         fun mBind(city: City) {
             binding.city = city
+            binding.executePendingBindings()
         }
 
         companion object {

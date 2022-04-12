@@ -3,6 +3,7 @@ package com.pourkazemi.mahdi.maktab_hw_15_v2
 import android.graphics.Color
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import com.pourkazemi.mahdi.maktab_hw_15_v2.model.City
 
 @BindingAdapter("citySelection")
 fun ConstraintLayout.isCitySelect(city: City){

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pourkazemi.mahdi.maktab_hw_15_v2.databinding.FragmentCityBinding
+import com.pourkazemi.mahdi.maktab_hw_15_v2.listadapter.ItemListAdapter
 
 
 class CityFragment : Fragment(R.layout.fragment_city) {

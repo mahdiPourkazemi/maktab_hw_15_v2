@@ -1,4 +1,4 @@
-package com.pourkazemi.mahdi.maktab_hw_15_v2
+package com.pourkazemi.mahdi.maktab_hw_15_v2.listadapter
 
 import android.util.Log
 import androidx.core.view.isGone

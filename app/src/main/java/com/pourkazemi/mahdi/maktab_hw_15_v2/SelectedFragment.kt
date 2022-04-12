@@ -3,13 +3,14 @@ package com.pourkazemi.mahdi.maktab_hw_15_v2
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pourkazemi.mahdi.maktab_hw_15_v2.databinding.FragmentSelectedBinding
+import com.pourkazemi.mahdi.maktab_hw_15_v2.listadapter.ItemListAdapter
+import com.pourkazemi.mahdi.maktab_hw_15_v2.listadapter.MyItemTouchHelper
 
 
 class SelectedFragment : Fragment(R.layout.fragment_selected) {
