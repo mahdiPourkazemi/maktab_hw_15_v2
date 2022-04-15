@@ -32,29 +32,25 @@ class SelectedFragment : Fragment(R.layout.fragment_selected) {
             )
         }
 
-        myViewModel.listOfSelectedCity.observe(viewLifecycleOwner) {list->
+        myViewModel.listOfSelectedCity.observe(viewLifecycleOwner) {
 
-            selectedItemListAdapter.mList.addAll(list.filter { it.isSelected })//.toSet())
+            selectedItemListAdapter.submitList(it.filter { it.isSelected }.toMutableList())
+            //selectedItemListAdapter.mList.addAll(list.filter { it.isSelected })//.toSet())
             Log.d("test","observed")
         }
-/*        selectedItemListAdapter.clickListener = { city, position ->
-            //city.isSelected = !city.isSelected
-            myViewModel.updateListCity(position)
-            Toast.makeText(
-                requireContext(),
-                "position: $position - name: $city.name",
-                Toast.LENGTH_SHORT
-            )
-                .show()
-        }*/
 
         val swipeHandler = object : MyItemTouchHelper() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = binding.selectedRv.adapter as ItemListAdapter
-                myViewModel.updateListCity(viewHolder.adapterPosition)
-                //remove second observer list
-                myViewModel.removeOfSelectedList(viewHolder.adapterPosition)
-                adapter.removeAt(viewHolder.adapterPosition)
+
+                Log.d("test","${adapter.currentList[viewHolder.layoutPosition].id}")
+                Log.d("test","${viewHolder.adapterPosition}")
+
+                var pos = adapter.getCurrentList()[viewHolder.layoutPosition].id
+                myViewModel.changeSelection(pos)
+                myViewModel.removeOfSelectedList(viewHolder.layoutPosition)
+                adapter.notifyItemRemoved(viewHolder.layoutPosition)
+                //adapter.removeAt(viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)

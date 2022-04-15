@@ -30,14 +30,16 @@ class CityFragment : Fragment(R.layout.fragment_city) {
         }
 
         myViewModel.listOfCity.observe(viewLifecycleOwner) {
-            Log.d("test", "this is observed")
-            cityItemListAdapter.mList.removeAll(it)
-            cityItemListAdapter.mList.addAll(it)
+            Log.d("test", "this is observed ${it.size}")
+            cityItemListAdapter.submitList(it)
+            //cityItemListAdapter.mList.removeAll(it)
+            //cityItemListAdapter.mList.addAll(it)
         }
 
         cityItemListAdapter.clickListener = {  position ->
             //city.isSelected = !city.isSelected
-            myViewModel.updateListCity(position)
+            myViewModel.changeSelection(position)
+            myViewModel.addToSelected(position)
             Toast.makeText(
                 requireContext(),
                 "position: $position",

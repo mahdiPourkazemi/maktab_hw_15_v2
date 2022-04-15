@@ -14,21 +14,18 @@ import com.pourkazemi.mahdi.maktab_hw_15_v2.model.City
 
 
 class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDiffUtil()) {
-    var clickListener: ((Int) -> Unit)? =null
+    var clickListener: ((Int) -> Unit)? = null
 
-/*        init {
-            setHasStableIds(true)
-        }*/
-    val mList = mutableListOf<City>()
-
-
-    fun removeAt(position: Int) {
-        mList.removeAt(position)
-        notifyItemRemoved(position)
-        //notifyItemMoved(position+1,position)
+    init {
+        setHasStableIds(true)
     }
+//val mlist=MutableList<City>=null
+/*    fun removeAt(position: Int) {
+        mlist.removeAt(position)
+        notifyItemRemoved(position)
+    }*/
 
-    override fun getItemCount()=mList.size
+    // override fun getItemCount()=currentList.size
 
     class ItemViewHolder(
         private val binding: MyItemBinding
@@ -71,11 +68,10 @@ class ItemListAdapter : ListAdapter<City, ItemListAdapter.ItemViewHolder>(ItemDi
         holder: ItemViewHolder,
         position: Int
     ) {
-        //holder.mBind(getItem(position))
-        holder.mBind(mList.get(position))
+        holder.mBind(getItem(position))
         holder.itemView.setOnClickListener {
             Log.d("test", "$position is clicked")
-            if (mList.get(position).isSelected) {
+            if (getItem(position).isSelected) {
                 holder.itemView.setBackgroundColor(
                     Color.parseColor("#FFFFFF")
                 )
@@ -95,10 +91,14 @@ class ItemDiffUtil : DiffUtil.ItemCallback<City>() {
     override fun areItemsTheSame(
         oldItem: City,
         newItem: City
-    ): Boolean = oldItem == newItem
+    ): Boolean {
+        return oldItem == newItem
+    }
 
     override fun areContentsTheSame(
         oldItem: City,
         newItem: City
-    ): Boolean = oldItem.id == newItem.id
+    ): Boolean {
+        return (oldItem.isSelected == newItem.isSelected && oldItem.id == newItem.id)
+    }
 }

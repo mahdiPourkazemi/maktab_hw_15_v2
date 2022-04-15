@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.pourkazemi.mahdi.maktab_hw_15_v2.model.City
 
 class MyViewModel : ViewModel() {
-    private val _listOfCity =
-        MutableLiveData<MutableList<City>>()//.apply { value?.addAll(createList())  }
+    private val _listOfCity = MutableLiveData<MutableList<City>>()
     val listOfCity: LiveData<List<City>>
         get() = Transformations.map(_listOfCity) {
             it.toList()
@@ -24,11 +23,15 @@ class MyViewModel : ViewModel() {
         _listOfSelectedCity.postValue(listOf<City>().toMutableSet())
     }
 
-    fun updateListCity(position: Int) {
-        // if (city.id == position) {
+    fun addToSelected(position: Int) {
         val uCity = _listOfCity.value?.get(position)
         uCity?.let {
             _listOfSelectedCity.value?.add(it)
+        }
+    }
+    fun changeSelection(position: Int){
+        val rCity = _listOfCity.value?.get(position)
+        rCity?.let {
             it.isSelected = !it.isSelected
             _listOfCity.value?.set(position, it)
         }
@@ -36,7 +39,7 @@ class MyViewModel : ViewModel() {
 
     fun removeOfSelectedList(position: Int) {
         _listOfSelectedCity.value?.remove(_listOfSelectedCity.value?.elementAt(position))
-        //_listOfCity.postValue(_listOfCity.value)
+        //changeSelection(position)
     }
 
     private fun createList(): List<City> {

@@ -74,4 +74,23 @@ open class MyItemTouchHelper : ItemTouchHelper.Callback() {
     ) {
         Log.d("test", "this is from swiped")
     }
+
+/*    *//**
+     * Called by the ItemTouchHelper when the user interaction with an element is over and it
+     * also completed its animation.
+     *
+     *
+     * This is a good place to clear all changes on the View that was done in
+     * [.onSelectedChanged],
+     * [.onChildDraw] or
+     * [.onChildDrawOver].
+     *
+     * @param recyclerView The RecyclerView which is controlled by the ItemTouchHelper.
+     * @param viewHolder   The View that was interacted by the user.
+     *//*
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        recyclerView.removeViewAt(viewHolder.adapterPosition)
+        recyclerView.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
+    }*/
 }
